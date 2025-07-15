@@ -1,4 +1,77 @@
-1. Introduction:
+45 minutes interview with Persistent
+
+1. Tell me about yourself:
+
+2. HTML
+"web worker" is in HTML/JavaScript
+HTML page optimization
+semantic elements in HTML
+
+3. CSS
+Responsive Web Design
+position in CSS
+z-index in CSS
+What's flex?
+media types
+difference between SCSS and CSS
+
+4. JavaScript
+What Is a Closure?
+
+
+What is the Event Loop?
+
+output:
+isNaN('1');  // returns false.
+
+
+
+output for code:
+x = 23;
+let x;
+
+function anotherRandomFunc() {
+  message = "Hello";
+}
+
+anotherRandomFunc();
+
+
+Temporal Dead Zone (TDZ)
+Higher-Order Functions (HOFs) in JavaScript
+function* genFunc(){}, What’s a Generator Function??
+difference between Promises and Observables in JavaScript
+
+5. NodeJS
+Types of Subjects in RxJS
+pros and cons of Node.js
+streams in Node.js
+fork function 
+security implementation in nodejs
+clustering in Node.js
+
+6. Angular
+Dependency Injection (DI) in Angular
+eager vs lazy loading
+types of route card
+What is CanLoad use?
+What providers mean in the context of Angular services
+HTTP Interceptors in Angular
+
+7. React
+What is Redux?
+immutability
+react hooks
+React Router
+
+
+8. AEM
+AEM design patterns
+AEM Connectors
+OSGi lifecycle
+advantages of OSGi
+
+-----------------------
 
 I am a Senior Full Stack Engineer with 12+ years of experience building .com websites for different organizations using HTML5, CSS3, JavaScript, React.js, and Redux. 
 In the past 2 years, I worked on the React migration team, where I converted the .net pages to react on united.com. 
@@ -20,16 +93,8 @@ In Office Depot worked on black Friday reporting.
 
 Satinos Technologies created a tax portal and a schoomin website for the Vignan schools.
 
-2. How do you optimize performance in a React app?
-
-1. Memoization with useMemo and useCallback: Use this hooks to memoize values and, reducing unnecessary recalculations.
-1. Optimizing Renders with React.Fragment: Use it to avoid unnecessary wrapper elements that could cause additional DOM nodes.
-1. Lazy loading with React.lazy: Use it to load components lazily, reducing the intial bundle size and imporving intial loading performance.
-1. Code splitting: Employ code splitting to divide your application into smaller chunks that are loaded on demand, improving initial load times.
-1. Optimizing Images and Assets: Compress and optimize images, use responsive images and leverage lazy loading for images to reduce network and rendering overhead.
 
 
---------------
 React Hooks: 
 Hooks are functions that enable functional components to manage state and lifecycle features, 
 providing a more concise and expressive way to handle component logic.
