@@ -1,0 +1,353 @@
+interview questions
+
+Javascript
+
+1. How do you flatten an array without using .flat()?
+
+Assuming arbitrary nesting depth, the most straightforward way is using recursion. 
+I’d check if an element is an array, and if it is, call the function recursively. 
+If not, just add it to the result.
+
+function flatten(arr) {
+  let result = [];
+
+  for (let item of arr) {
+    if (Array.isArray(item)) {
+      result = result.concat(flatten(item));
+    } else {
+      result.push(item);
+    }
+  }
+
+  return result;
+}
+
+So overall, recursion is clean and expressive for this, but stack-based iteration is good if performance or deep nesting is a concern.
+
+2. generator in js?
+
+    - Generators are used to control the flow of application inside the function call.
+ 
+    - Generators are also introduced in ES6.
+ 
+    - Generators functions should have the "*"
+ 
+    - to control the application flow we will take "yield" keyword.
+
+    /*
+    function *fun_one(){
+        yield 10;
+        yield 20;
+        yield 30;
+        yield "we will connect to databases soon....!";
+        yield 50;
+    };
+ 
+    let cursor = fun_one();
+    console.log( cursor.next() );
+    console.log( cursor.next() );
+    console.log( cursor.next() );
+    console.log( cursor.next() );
+    console.log( cursor.next() );
+    console.log( cursor.next() );
+*/
+
+3. Currying in JS?
+
+• converting the complex level business logic to readable code is called currying.
+• converting tighlty couple code to easily readeable code is currying.
+• loosely coupled code is nothing but currying.
+
+
+4. Reduce method?
+
+  reduce()
+        - it is used to know the summation of array elements
+ 
+let arr = [1,2,3,4,5];
+console.log(
+    arr.reduce((firstValue,nextValue)=>{
+        return firstValue+nextValue;
+    })
+);     //15
+
+5. Map vs Weak Map?
+
+Map – if we take duplicate values nothing will happen, but keys will be overriding.
+
+Difference b/w weakMap and Map ? WeakMap keys are "JSON Objects".
+
+<!--
+<script>
+    //WeakMap allows only "json object" as keys
+    let map = new WeakMap();
+    console.dir(map);  //to know the api of weakmap
+ 
+    //WeakMap()
+    //set() to the set the data
+    //get()
+    //has()
+    //delete()
+</script>
+-->
+
+ReactJS
+
+6. Lazyloading in detail?
+
+Lazy loading is the technique of rendering only-needed or critical user interface items first, 
+then quietly unrolling the non-critical items later.
+
+7. Profiler
+
+The React Profiler is a tool that helps you measure the performance of components. 
+It tells you how often a component renders and how long each render takes. 
+It’s useful for spotting unnecessary re-renders and optimizing slow parts of your app.
+
+
+So overall, the Profiler is mainly for performance debugging—helping identify which components might benefit from memoization or restructuring.
+
+8. Portfolio
+A personal website built using React to showcase your projects, skills, experience, and contact info.
+
+9. Forward Ref in detail? 
+
+What is forwardRef?
+React.forwardRef is a special function that lets you pass a ref through a component to one of its child DOM elements.
+
+Normally, functional components can't receive refs, because refs only work on DOM elements or class components. forwardRef solves that.
+
+const MyButton = React.forwardRef((props, ref) => {
+  return <button ref={ref} {...props}>Click me</button>;
+});
+
+const App = () => {
+  const btnRef = React.useRef();
+
+  React.useEffect(() => {
+    if (btnRef.current) {
+      btnRef.current.focus(); // now this works
+    }
+  }, []);
+
+  return <MyButton ref={btnRef} />;
+};
+
+Breakdown:
+forwardRef takes a render function with (props, ref)
+
+That ref is the one passed from the parent
+
+You attach it to a child DOM node (ref={ref})
+
+Now the parent can interact with that node directly
+
+forwardRef lets a parent access a child DOM node through a custom component. 
+It's especially useful in reusable libraries, UI kits, or when wrapping native inputs.
+
+
+10. Redux store setup flow?
+
+I use Redux Toolkit. First, I create a slice with createSlice to define state and reducers. 
+Then I pass those reducers into configureStore. 
+I wrap my app with <Provider> and use useSelector to read state and useDispatch to update it.”
+
+11. Context API
+
+React Context API is a way to essentially create global variables that can be passed around in a React app. 
+This is the alternative to "prop drilling", or passing props from grandparent to parent to child, and so on. 
+Context is often touted as a simpler, lighter solution to using Redux for state management.
+
+12. How to improve application performance?
+
+1. Memoization with useMemo and useCallback:  Use this hooks to memoize values and, reducing unnecessary recalculations.
+2. Optimizing Renders with React.Fragment: Use it to avoid unnecessary wrapper elements that could cause additional DOM nodes.
+3. Lazy loading with React.lazy: Use it to load components lazily, reducing the intial bundle size and imporving intial loading performance.
+4. Code splitting: Employ code splitting to divide your application into smaller chunks that are loaded on demand, improving initial load times.
+5. Optimizing Images and Assets:  Compress and optimize images, use responsive images and leverage lazy loading for images to reduce network and rendering overhead.
+
+13. useRef vs forwardRef useImperativehandle?
+
+1. useRef
+Creates a mutable ref object you can attach to any DOM element or React component.
+
+Commonly used to access DOM nodes directly or to store mutable values that persist across renders without triggering a re-render.
+
+Example: getting input focus, storing timers, or holding any mutable value.
+
+/*
+const inputRef = useRef(null);
+
+useEffect(() => {
+  inputRef.current.focus();
+}, []);
+
+return <input ref={inputRef} />;
+
+
+*/
+
+2. forwardRef
+A way to pass refs from parent to child components so the parent can directly access a child’s DOM node or instance.
+
+Normally, refs don't get passed through components by default; forwardRef enables this.
+
+Wrap your functional component with forwardRef to expose the child ref to the parent.
+
+/*
+const MyInput = React.forwardRef((props, ref) => {
+  return <input ref={ref} {...props} />;
+});
+
+const Parent = () => {
+  const inputRef = useRef();
+  return <MyInput ref={inputRef} />;
+};
+
+*/
+
+3. useImperativeHandle
+Used inside a component wrapped with forwardRef.
+
+Lets you control what is exposed through the ref.
+
+Instead of exposing the whole DOM node or component instance, you can expose a custom API.
+
+Useful when you want to provide specific methods or properties that parent can call.
+
+const MyInput = React.forwardRef((props, ref) => {
+  const inputRef = useRef();
+
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current.focus();
+    },
+    clear: () => {
+      inputRef.current.value = '';
+    }
+  }));
+
+  return <input ref={inputRef} />;
+});
+
+const Parent = () => {
+  const ref = useRef();
+
+  return (
+    <>
+      <MyInput ref={ref} />
+      <button onClick={() => ref.current.focus()}>Focus</button>
+      <button onClick={() => ref.current.clear()}>Clear</button>
+    </>
+  );
+};
+
+
+What this really means is:
+useRef: Create refs.
+
+forwardRef: Pass refs through components.
+
+useImperativeHandle: Customize what the ref exposes to the parent.
+
+
+
+14. coding question:
+
+const obj = [
+    {apple: 2, orange: 1, banana: 3, grapes: 1},
+    {apple: 2, orange: 1, banana: 3},
+    {apple: 2, orange: 1, banana: 3, grapes: 2},
+    ];
+    
+    //Expected Result:
+    //{apple: 6, orange: 3, banana: 9, grapes: 3}
+    //NOTE: Using reduce() method
+    
+const result = obj.reduce((acc, item) => {
+        apple = acc.apple + item.apple,
+        orange = acc.orange + item.orange,
+        banana = acc.banana + item.banana,
+        grapes = (acc.grapes || 0) + (item.grapes || 0)
+        return{
+            apple,
+            orange,
+            banana,
+            grapes
+        }
+
+},)    
+console.log(result);
+
+
+15. coding question 2:
+
+let obj = [
+  { Sno: 1, score: 20 },
+  { Sno: 2, score: 30 },
+  { Sno: 1, score: 50 },
+];
+
+let map = new Map();
+
+for (let item of obj) {
+  if (map.has(item.Sno)) {
+    map.set(item.Sno, map.get(item.Sno) + item.score);
+  } else {
+    map.set(item.Sno, item.score);
+  }
+}
+
+let newArr = Array.from(map, ([Sno, score]) => ({ Sno, score }));
+
+console.log(newArr);
+// Output: [ { Sno: 1, score: 70 }, { Sno: 2, score: 30 } ]
+
+
+
+-----------------------
+react.js
+
+
+import React from 'react';
+
+const ConsolidatedScores = () => {
+  const obj = [
+    { Sno: 1, score: 20 },
+    { Sno: 2, score: 30 },
+    { Sno: 1, score: 50 },
+  ];
+
+  const consolidateScores = (data) => {
+    const map = new Map();
+
+    data.forEach(({ Sno, score }) => {
+      if (map.has(Sno)) {
+        map.set(Sno, map.get(Sno) + score);
+      } else {
+        map.set(Sno, score);
+      }
+    });
+
+    return Array.from(map, ([Sno, score]) => ({ Sno, score }));
+  };
+
+  const newArr = consolidateScores(obj);
+
+  return (
+    <div>
+      <h2>Consolidated Scores</h2>
+      <ul>
+        {newArr.map((item) => (
+          <li key={item.Sno}>
+            Sno: {item.Sno}, Score: {item.score}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default ConsolidatedScores;
+
+
